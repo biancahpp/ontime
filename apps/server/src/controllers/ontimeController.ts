@@ -471,6 +471,7 @@ export const postNew: RequestHandler = async (req, res) => {
       publicInfo: req.body?.publicInfo ?? '',
       backstageUrl: req.body?.backstageUrl ?? '',
       backstageInfo: req.body?.backstageInfo ?? '',
+      customFields: req.body?.customFields ?? '',
     };
     const newData = await DataProvider.setProjectData(newProjectData);
     await deleteAllEvents();
