@@ -34,6 +34,7 @@ import {
   parseSettings,
   parseUserFields,
   parseViewSettings,
+  parseCustomFields,
 } from './parserFunctions.js';
 import { parseExcelDate } from './time.js';
 import { configService } from '../services/ConfigService.js';
@@ -328,6 +329,7 @@ export const parseJson = async (jsonData): Promise<DatabaseModel | null> => {
     viewSettings: parseViewSettings(jsonData) ?? dbModel.viewSettings,
     aliases: parseAliases(jsonData),
     userFields: parseUserFields(jsonData),
+    customFields: parseCustomFields(jsonData),
     osc: parseOsc(jsonData) ?? dbModel.osc,
     http: parseHttp(jsonData) ?? dbModel.http,
   };

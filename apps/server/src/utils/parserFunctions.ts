@@ -17,6 +17,7 @@ import {
   isOntimeEvent,
   isOntimeDelay,
   isOntimeBlock,
+  CustomFieldDefinitions,
 } from 'ontime-types';
 
 import { block as blockDef, delay as delayDef } from '../models/eventsDefinition.js';
@@ -99,7 +100,6 @@ export const parseProject = (data): ProjectData => {
       publicInfo: project.publicInfo || dbModel.project.publicInfo,
       backstageUrl: project.backstageUrl || dbModel.project.backstageUrl,
       backstageInfo: project.backstageInfo || dbModel.project.backstageInfo,
-      customFields: project.customFields || dbModel.project.customFields,
     };
   }
   return newProjectData as ProjectData;
@@ -333,4 +333,24 @@ export const parseUserFields = (data): UserFields => {
     }
   }
   return { ...newUserFields };
+};
+
+/**
+ * Parse customFields entry
+ * @param {object} data - data object
+ * @returns {object} - event object data
+ */
+export const parseCustomFields = (data): CustomFieldDefinitions => {
+  let newCustomFields: CustomFieldDefinitions = { ...dbModel.customFields };
+
+  if ('customFields' in data) {
+    console.log('Found Custom Fields definition, importing...');
+    try {
+      //TODO: validate
+      newCustomFields = { ...dbModel.customFields, ...data.customFields };
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  }
+  return { ...newCustomFields };
 };
